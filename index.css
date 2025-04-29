@@ -1,0 +1,147 @@
+
+.hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px;
+    height: 80vh;
+    animation: fadeIn 1s ease-out;
+}
+
+.hero-text {
+    max-width: 50%;
+}
+
+.hero-text h1 {
+    font-size: 60px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    animation: fadeIn 1.2s ease-out;
+}
+
+.hero-text h1.wahala-title {
+    background: linear-gradient(90deg, #ff4d4d, #fff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-text p {
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 30px;
+    color: #ccc;
+    letter-spacing: 1px;
+    animation: fadeIn 1.4s ease-out;
+}
+
+.hero-text h3 {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 20px 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    animation: fadeIn 1.6s ease-out;
+}
+
+.slider-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    animation: fadeIn 1.6s ease-out;
+}
+
+.slider-controls button {
+    width: 30px;
+    height: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    animation: neonGlow 2s infinite;
+}
+
+
+
+.slider-controls button svg {
+    transition: stroke 0.3s ease;
+}
+
+.slider-controls button:hover svg path {
+    stroke: #fff;
+}
+
+.see-more {
+    font-size: 12px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #ccc;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.see-more:hover {
+    color: #ff4d4d;
+    text-shadow: 0 0 5px #ff4d4d;
+}
+
+.slider-dots {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    animation: fadeIn 1.8s ease-out;
+}
+
+.dot {
+    font-size: 14px;
+    font-weight: 400;
+    color: #ccc;
+    transition: color 0.3s ease;
+}
+
+.dot.active {
+    color: #ff4d4d;
+}
+
+.hero-image {
+    position: relative;
+    width: 40%;
+}
+
+.hero-image img {
+    width: 100%;
+    display: none;
+    border-radius: 10px;
+}
+
+.hero-image img.active {
+    display: block;
+    animation: slideFade 0.8s ease-out;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .hero {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .hero-text {
+        max-width: 100%;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .hero-text h1 {
+        font-size: 40px;
+    }
+
+    .hero-image {
+        width: 100%;
+    }
+}

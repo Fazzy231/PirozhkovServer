@@ -1,0 +1,211 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #1a1a1a, #2c2c2c);
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+
+body::before {
+    background: radial-gradient(circle, #ff4d4d 2px, transparent 2px),
+                radial-gradient(circle, #ff4d4d 1px, transparent 1px),
+                radial-gradient(circle, #ff4d4d 1.5px, transparent 1.5px),
+                radial-gradient(circle, #ff4d4d 2px, transparent 2px),
+                radial-gradient(circle, #ff4d4d 1px, transparent 1px);
+    background-size: 200px 200px;
+    background-position: 0 0, 50px 50px, 100px 100px, 150px 150px, 200px 200px;
+    opacity: 0.3;
+    animation: floatCircles 15s linear infinite;
+}
+
+@keyframes floatCircles {
+    0% {
+        background-position: 0 0, 50px 50px, 100px 100px, 150px 150px, 200px 200px;
+    }
+    100% {
+        background-position: 200px 200px, 250px 250px, 300px 300px, 350px 350px, 400px 400px;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideFade {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes neonGlow {
+    0% {
+        filter: drop-shadow(0 0 5px #ff4d4d) drop-shadow(0 0 10px #ff4d4d);
+    }
+    50% {
+        filter: drop-shadow(0 0 10px #ff4d4d) drop-shadow(0 0 20px #ff4d4d);
+    }
+    100% {
+        filter: drop-shadow(0 0 5px #ff4d4d) drop-shadow(0 0 10px #ff4d4d);
+    }
+}
+
+@keyframes glitchText {
+    0% { transform: translate(0, 0); opacity: 1; }
+    5% { transform: translate(-1px, 1px); opacity: 0.9; }
+    10% { transform: translate(1px, -1px); opacity: 0.95; }
+    15% { transform: translate(0, 0); opacity: 1; }
+    100% { transform: translate(0, 0); opacity: 1; }
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 0 0 15px 15px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    padding: 5px 15px;
+    animation: fadeIn 1s ease-out;
+}
+
+.logo img {
+    height: 40px;
+}
+
+.nav {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.nav li a:hover,
+.nav li a.active {
+    color: #ff4d4d;
+    transform: translateY(-2px);
+    text-shadow: 0 0 5px #ff4d4d;
+}
+
+.footer {
+    text-align: center;
+    background: rgba(0, 0, 0, 0.8);
+    margin-top: auto;
+    border-radius: 15px 15px 0 0;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+    padding: 5px 15px;
+}
+
+.footer p {
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    color: #ff4d4d;
+    text-transform: uppercase;
+ 
+}
+
+.section {
+    justify-content: center;
+    text-align: center;
+    padding: 50px;
+    min-height: 80vh;
+    animation: fadeIn 1s ease-out;
+}
+
+.section .hero-text {
+    max-width: 100%;
+}
+
+.section .hero-text h1 {
+    font-size: 60px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    background: linear-gradient(90deg, #ff4d4d, #fff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 10px rgba(255, 77, 77, 0.5);
+    animation: fadeIn 1.2s ease-out;
+}
+
+.section .hero-text p {
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 30px;
+    color: #ccc;
+    letter-spacing: 1px;
+    animation: fadeIn 1.4s ease-out;
+}
+
+@media (max-width: 768px) {
+    .nav {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .header {
+        flex-direction: column;
+        gap: 10px;
+        padding: 5px 10px;
+    }
+
+    .logo img {
+        height: 30px;
+    }
+
+    .nav li a {
+        font-size: 10px;
+    }
+
+    .footer p {
+        font-size: 12px;
+    }
+}
