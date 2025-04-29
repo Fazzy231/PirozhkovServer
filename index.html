@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PirozhkovServer - Премиум читы для Minecraft</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --dark: #2d3436;
+            --light: #f5f6fa;
+            --accent: #fd79a8;
+            --success: #00b894;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #121212;
+            color: var(--light);
+            line-height: 1.6;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            background: rgba(18, 18, 18, 0.9);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .logo img {
+            height: 40px;
+            filter: drop-shadow(0 0 5px var(--primary));
+        }
+        
+        .nav {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: color 0.3s;
+        }
+        
+        .nav a:hover {
+            color: var(--primary);
+        }
+        
+        .nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        .nav a:hover::after {
+            width: 100%;
+        }
+        
+        .nav a.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .hero {
+            display: flex;
+            min-height: 100vh;
+            padding: 8rem 5% 4rem;
+            align-items: center;
+            gap: 3rem;
+        }
+        
+        .hero-text {
+            flex: 1;
+            max-width: 600px;
+        }
+        
+        .wahala-title {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.2;
+        }
+        
+        .hero-text p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .slider-controls {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .prev, .next {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .prev:hover, .next:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .see-more {
+            font-weight: 600;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .see-more:hover {
+            color: var(--primary);
+        }
+        
+        .slider-dots {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .dot {
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: all 0.3s;
+        }
+        
+        .dot.active {
+            opacity: 1;
+            color: var(--primary);
+            transform: scale(1.1);
+        }
+        
+        .hero-image {
+            flex: 1;
+            position: relative;
+            height: 500px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(108, 92, 231, 0.3);
+        }
+        
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        
+        .slide.active {
+            opacity: 1;
+        }
+        
+        .features {
+            padding: 5rem 5%;
+            background: rgba(18, 18, 18, 0.7);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px -10px rgba(108, 92, 231, 0.5);
+            background: rgba(108, 92, 231, 0.1);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .cta {
+            padding: 5rem 5%;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(108, 92, 231, 0.1), rgba(18, 18, 18, 0.9));
+        }
+        
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta p {
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            font-size: 1.2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 20px -10px var(--primary);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px -10px var(--primary);
+        }
+        
+        .footer {
+            padding: 3rem 5%;
+            text-align: center;
+            background: rgba(18, 18, 18, 0.9);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer p {
+            opacity: 0.7;
+        }
+        
+        @media (max-width: 1024px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 10rem;
+            }
+            
+            .hero-text {
+                max-width: 100%;
+            }
+            
+            .slider-controls {
+                justify-content: center;
+            }
+            
+            .hero-image {
+                width: 100%;
+                margin-top: 3rem;
+            }
+            
+            .nav {
+                gap: 1rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            
+            .logo {
+                margin-bottom: 1rem;
+            }
+            
+            .nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .wahala-title {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <img src="https://via.placeholder.com/150x50/6c5ce7/ffffff?text=Pirozhkov" alt="PirozhkovServer Logo">
+        </div>
+        <nav>
+            <ul class="nav">
+                <li><a href="index.html" class="active">Главная</a></li>
+                <li><a href="about.html">О нас</a></li>
+                <li><a href="gallery.html">Обзор</a></li>
+                <li><a href="contacts.html">Контакты</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-text">
+            <h1 class="wahala-title">PirozhkovServer — Доминируй в Minecraft</h1>
+            <p>Премиум читы с инновационными функциями, которые дадут вам неоспоримое преимущество на любом сервере. Незаметность, мощность и надежность.</p>
+            <div class="slider-controls">
+                <button class="prev">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <span class="see-more">Узнать больше</span>
+                <button class="next">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            <div class="slider-dots">
+                <span class="dot active">01</span>
+                <span class="dot">02</span>
+                <span class="dot">03</span>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="https://source.unsplash.com/random/800x500/?minecraft,game" alt="Minecraft Gameplay" class="slide active">
+            <img src="https://source.unsplash.com/random/800x500/?gaming,computer" alt="Gaming Setup" class="slide">
+            <img src="https://source.unsplash.com/random/800x500/?hacker,code" alt="Cheat Interface" class="slide">
+        </div>
+    </section>
+
+    <section class="features">
+        <h2 class="section-title">Почему выбирают нас</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Анти-обнаружение</h3>
+                <p>Наши читы используют передовые технологии для полной скрытности от античитов.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3>Максимальная мощность</h3>
+                <p>Широкий набор функций для полного контроля над игровым процессом.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h3>Поддержка 24/7</h3>
+                <p>Наша команда всегда готова помочь с любыми вопросами в любое время суток.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <h2>Готовы начать доминировать?</h2>
+        <p>Присоединяйтесь к тысячам игроков, которые уже используют PirozhkovServer для достижения невероятных результатов в Minecraft.</p>
+        <a href="#" class="btn">Купить сейчас</a>
+    </section>
+
+    <footer class="footer">
+        <p>© 2025 PirozhkovServer. Все права защищены.</p>
+    </footer>
+
+    <script>
+        // Simple slider functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.slide');
+            const dots = document.querySelectorAll('.dot');
+            let currentSlide = 0;
+            
+            function showSlide(n) {
+                slides.forEach(slide => slide.classList.remove('active'));
+                dots.forEach(dot => dot.classList.remove('active'));
+                
+                currentSlide = (n + slides.length) % slides.length;
+                slides[currentSlide].classList.add('active');
+                dots[currentSlide].classList.add('active');
+            }
+            
+            document.querySelector('.next').addEventListener('click', () => {
+                showSlide(currentSlide + 1);
+            });
+            
+            document.querySelector('.prev').addEventListener('click', () => {
+                showSlide(currentSlide - 1);
+            });
+            
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    showSlide(index);
+                });
+            });
+            
+            // Auto-slide every 5 seconds
+            setInterval(() => {
+                showSlide(currentSlide + 1);
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
